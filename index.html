@@ -19,12 +19,20 @@
   		text-decoration: line-through;
   		color: rgb(180,180,180);
   	}
+  	@media screen and (max-width: 540px){
+  	 *{
+  	 	font-size: 10px!important;
+  	 }
+  	 h3{
+  	 	font-size: 20px!important;
+  	 }
+  	}
   </style>
 </head>
-<body style="background: url('https://c.pxhere.com/photos/97/e6/light_people_blackandwhite_black_monochrome_silhouette_blackbackground_dark-106281.jpg!d');background-size: 100%">
+<body style="background: url('https://c.pxhere.com/photos/97/e6/light_people_blackandwhite_black_monochrome_silhouette_blackbackground_dark-106281.jpg!d');background-size: cover;background-repeat: no-repeat;">
     <div style="text-align: center;margin: 20px;">
     	<h3 style="color: white;">TODO APPLICATION</h3>
-    	<input style="width: 85%;display: inline;" onkeypress="key_check(event);" id="todo_input" class="form-control" type="text" name="todo_text" placeholder="Enter your TODO"/>
+    	<input style="width:85%;display: inline;" onkeypress="key_check(event);" id="todo_input" class="form-control" type="text" name="todo_text" placeholder="Enter your TODO"/>
     	<button style="width: 10%;display: inline;" class="btn btn-default" onclick="add()">ADD</button>
     </div>
     <div id="todos">
@@ -63,7 +71,6 @@
 				document.getElementById(id).setAttribute('class','read');
 				localStorage.setItem(id+"read",1);
 			}
-
 			else
 			{
 				document.getElementById(id).setAttribute('class','');
@@ -115,11 +122,11 @@
 		}
 		function view_ele(id)
 		{
-           document.getElementById("close"+id).setAttribute('style','font-size: 25px;float:right;vertical-align:middle;text-decoration:none;color:black;padding-bottom:10px;display:inline;');
+           document.getElementById("close"+id).setAttribute('style','font-size: 19px;float:right;vertical-align:middle;text-decoration:none;color:black;margin-top:0;display:inline-block;');
 		}
 		function hide_ele(id)
 		{
-           document.getElementById("close"+id).setAttribute('style','font-size: 25px;float:right;vertical-align:middle;text-decoration:none;color:black;padding-bottom:10px;display:inline;');
+           document.getElementById("close"+id).setAttribute('style','display:none;');
 		}
     </script>
 </body>
