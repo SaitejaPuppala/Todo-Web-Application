@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TODO APPLICATION</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    #div{
+    	margin: 0;
+  		padding: 5px;
+    }
+  	#div:hover{
+  		background: rgba(235,235,235,.8);
+  	}
+  	.read{
+  		text-decoration: line-through;
+  		color: rgb(180,180,180);
+  	}
+  </style>
+</head>
+<body style="background: url('https://c.pxhere.com/photos/97/e6/light_people_blackandwhite_black_monochrome_silhouette_blackbackground_dark-106281.jpg!d');background-size: 100%">
+    <div style="text-align: center;margin: 20px;">
+    	<h3 style="color: white;">TODO APPLICATION</h3>
+    	<input style="width: 85%;display: inline;" onkeypress="key_check(event);" id="todo_input" class="form-control" type="text" name="todo_text" placeholder="Enter your TODO"/>
+    	<button style="width: 10%;display: inline;" class="btn btn-default" onclick="add()">ADD</button>
+    </div>
+    <div id="todos">
+    <p style="font-size: 15px;">hh</p>
+    </div>
+    <script type="text/javascript">
+    	load();
+    	function key_check(event)
+    	{
+    		//console.log("event fired");
+    		if (event.keyCode == 13 || event.which == 13){
+                    add();
+    	        }
+        }
+    	function add()
+    	{
+    		var todo = document.getElementById('todo_input').value.toUpperCase();
+    		if (typeof(Storage) !== "undefined" && todo != "")
+    		 {
+                if (localStorage.count) 
+                {
+				    localStorage.count = Number(localStorage.count) + 1;
+				} else {
+				    localStorage.count = 1;
+				}
+				localStorage.setItem(localStorage.count, todo);
+				localStorage.setItem(localStorage.count+"read",0);
+				load();
+			 }
+			 document.getElementById("todo_input").value = "";
+		}
+		function read(id)
+		{
+			if(document.getElementById("check"+id).checked)
+			{
+				document.getElementById(id).setAttribute('class','read');
+				localStorage.setItem(id+"read",1);
+			}
+
+			else
+			{
+				document.getElementById(id).setAttribute('class','');
+				localStorage.setItem(id+"read",0);
+			}
+		}
+		function close_ele(id,event)
+		{
+			event.preventDefault();
+			//console.log('hahhh');
+			localStorage.removeItem(id+'');
+			localStorage.removeItem(id+'read');
+			load();
+		}
+		function load()
+		{
+         var x = "",k,rd; 
+				for (var i = 1; i <= localStorage.count; i++) {
+				   k = localStorage.getItem(i+'');
+				   rd = localStorage.getItem(i+'read');
+				   if(k!= null)
+				   	{
+				   		if(rd=='0')
+				          x += "<div id='div' onmouseenter='view_ele("+ i +")' onmouseleave='hide_ele("+ i +")'>"+
+				                  "<input type='checkbox' name='todotext' id='check"+ i +"' onchange='read("+ i +")'>"+
+				                  "<p id="+ i +" style='display:inline;'> " + k + "</p>"+
+				                  "<a href='#' id='close"+ i +"' style='display:none;' onclick='close_ele("+ i +",event)'>&times;</a>"+
+				                "</div>";
+				        else
+				        {
+				          x += "<div id='div' onmouseenter='view_ele("+ i +")' onmouseleave='hide_ele("+ i +")'>"+
+				                  "<input type='checkbox' name='todotext' id='check"+ i +"' onchange='read("+ i +")' checked>"+
+				                  "<p class='read' id="+ i +" style='display:inline;'> " + k + "</p>"+
+				                  "<a href='#' id='close"+ i +"' style='display:none;' onclick='close_ele("+ i +",event)'>&times;</a>"+
+				                "</div>";
+				        }
+			        }
+				}
+				document.getElementById("todos").innerHTML = x;
+				if(x != "")
+				{
+                    document.getElementById('todos').setAttribute('style','background-color: white;margin: 45px;border-radius: 2px;padding: 15px;');
+				}
+				else
+				{
+					document.getElementById('todos').setAttribute('style','');
+				}
+                
+		}
+		function view_ele(id)
+		{
+           document.getElementById("close"+id).setAttribute('style','font-size: 25px;float:right;vertical-align:middle;text-decoration:none;color:black;padding-bottom:10px;display:inline;');
+		}
+		function hide_ele(id)
+		{
+           document.getElementById("close"+id).setAttribute('style','font-size: 25px;float:right;vertical-align:middle;text-decoration:none;color:black;padding-bottom:10px;display:inline;');
+		}
+    </script>
+</body>
+</html>
