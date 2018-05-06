@@ -89,21 +89,20 @@
 		{
          var x = "",k,rd; 
 				for (var i = 1; i <= localStorage.count; i++) {
-				   k = localStorage.getItem(i+'');
 				   rd = localStorage.getItem(i+'read');
-				   if(k!= null)
+				   if(rd!= null)
 				   	{
 				   		if(rd=='0')
 				          x += "<div id='div' onmouseenter='view_ele("+ i +")' onmouseleave='hide_ele("+ i +")'>"+
 				                  "<input type='checkbox' name='todotext' id='check"+ i +"' onchange='read("+ i +")'>"+
-				                  "<p id="+ i +" style='display:inline;'> " + k + "</p>"+
+				                  "<p id="+ i +" style='display:inline;'></p>"+
 				                  "<a href='#' id='close"+ i +"' style='display:none;' onclick='close_ele("+ i +",event)'>&times;</a>"+
 				                "</div>";
 				        else
 				        {
 				          x += "<div id='div' onmouseenter='view_ele("+ i +")' onmouseleave='hide_ele("+ i +")'>"+
 				                  "<input type='checkbox' name='todotext' id='check"+ i +"' onchange='read("+ i +")' checked>"+
-				                  "<p class='read' id="+ i +" style='display:inline;'> " + k + "</p>"+
+				                  "<p class='read' id="+ i +" style='display:inline;'></p>"+
 				                  "<a href='#' id='close"+ i +"' style='display:none;' onclick='close_ele("+ i +",event)'>&times;</a>"+
 				                "</div>";
 				        }
@@ -118,7 +117,11 @@
 				{
 					document.getElementById('todos').setAttribute('style','');
 				}
-                
+				for (var i = 1; i <= localStorage.count; i++) {
+					k = localStorage.getItem(i+'');
+					if(k!=null)
+				    document.getElementById(i).innerText = k;
+				}	    
 		}
 		function view_ele(id)
 		{
